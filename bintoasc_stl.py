@@ -23,13 +23,16 @@ print(f"number: {number}")
 for x in range(0, number):
     out.write("facet normal ")
 
-    xc = data[84+x*50] + data[85+x*50] + data[86+x*50] + data[87+x*50]
-    yc = data[88+x*50] + data[89+x*50] + data[90+x*50] + data[91+x*50]
-    zc = data[92+x*50] + data[93+x*50] + data[94+x*50] + data[95+x*50]
+    xc = bytearray([data[84+x*50], data[85+x*50], data[86+x*50], data[87+x*50]])
+    yc = bytearray([data[88+x*50], data[89+x*50], data[90+x*50], data[91+x*50]])
+    zc = bytearray([data[92+x*50], data[93+x*50], data[94+x*50], data[95+x*50]])
 
-    out.write(str(xc) + " ")
-    out.write(str(yc) + " ")
-    out.write(str(zc) + "\n")
+    out.write(f'{struct.unpack('<f', xc)[0]:.3g}')
+    out.write(" ")
+    out.write(f'{struct.unpack('<f', yc)[0]:.3f}')
+    out.write(" ")
+    out.write(f'{struct.unpack('<f', zc)[0]:.3f}')
+    out.write("\n")
 
     out.write("outer loop\n")
 
